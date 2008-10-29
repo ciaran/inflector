@@ -1,0 +1,23 @@
+# Inflector
+
+An implementation of the Ruby on Rails inflector in Objective-C.
+
+## Requirements
+
+RegexKit(Lite) is required – RegexKitLite is included in the repository, so you can just add it to your project along with the Inflector files. If you are already using RegexKit you won't need to add RegexKitLite as well.
+
+## Inflections
+
+All the default Rails inflections are included in the inflections.plist file. You can add more by editing this file, or by using the -[CWInflector addXxx…] methods (see CWInflector.h for the list). For example:
+
+	[[CWInflector inflector] addPluralPattern:@"(buffal|tomat)o$" substitution:@"$1oes"];
+
+## Usage
+
+To use Inflector, add the `CWInflector.mm` to your target’s Compile Sources build phase, and add the `inflections.plist` file to your target’s Copy Bundle Resources build phase. Then `#import "CWInflector.h"` in your code and you can start inflecting.
+
+Currently there is support for converting words to their singular or plural forms, and for converting identifiers into a more human readable version. All operations can be performed either through the CWInflector singleton instance, or through the NSString category methods:
+
+	[[CWInflector inflector] pluralFormOf:@"Sheep"]; // => @"Sheep"
+	[@"Bus" pluralForm]; // => @"Buses"
+	[@"product_category_id" humanizedForm]; // => @"Product category"
